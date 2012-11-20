@@ -26,6 +26,13 @@ Goals:
 2) Maybe get more clever about translating dm-6 into 'this is your swap 
    partition'
 
+Useful additions:
+I think it's beyond the scope of this tool to translate sda4 to 'swap' or 
+dm-6 to '/var', or 'VxVM3822' to '/u01'.  There's too much in there to swallow.
+
+However, for LVM, you can traceback from dm-6 to device with this handy
+one-liner:
+lvdisplay|awk  '/LV Name/{n=$3} /Block device/{d=$3; sub(".*:","dm-",d); print d,n;}'
 
 [1] iotop: http://guichaz.free.fr/iotop/
 [2] iodump: http://www.xaprb.com/blog/2009/08/23/how-to-find-per-process-io-statistics-on-linux/
