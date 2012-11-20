@@ -10,6 +10,7 @@ Program to write out a histagram-ish thing of IO.  Think top for IO consumption.
     b) aggregate into pid key'ed dictionary with values of 
        procdesc, read, write, devlist
     c) print sorted list by total of read-write
+4) revert state of /proc/sys/vm/block_dump
 """
 
 import sys
@@ -94,7 +95,7 @@ if __name__ == "__main__" :
         bd.close()
     try :
         main()
-    except (KeyboardInterrupt, SystemExit) :
+    except :
         if orig_dump == '0' :
             bd = open('/proc/sys/vm/block_dump', 'w')
             bd.write(orig_dump + '\n')
